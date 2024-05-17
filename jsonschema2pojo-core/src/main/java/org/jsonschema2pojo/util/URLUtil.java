@@ -21,11 +21,27 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.jsonschema2pojo.URLProtocol;
 
 public class URLUtil {
+
+    private static final Set<URLProtocol> LOCAL_PROTOCOL = Arrays.stream(new URLProtocol[]{URLProtocol.NO_PROTOCOL, URLProtocol.FILE}).collect(Collectors.toSet());
+
+    private URLUtil() {
+    }
+
+    public static boolean isLocalUrl(String input) {
+        return LOCAL_PROTOCOL.contains(parseProtocol(input));
+    }
+
+    public static boolean isRemoteUrl(String input) {
+        return !isLocalUrl(input);
+    }
 
     public static URLProtocol parseProtocol(String input) {
         return URLProtocol.fromString(StringUtils.substringBefore(input, ":"));
