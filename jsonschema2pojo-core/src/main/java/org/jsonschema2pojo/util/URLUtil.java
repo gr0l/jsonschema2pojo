@@ -16,21 +16,21 @@
 
 package org.jsonschema2pojo.util;
 
+import org.apache.commons.lang.StringUtils;
+import org.jsonschema2pojo.URLProtocol;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang.StringUtils;
-import org.jsonschema2pojo.URLProtocol;
 
 public class URLUtil {
 
-    private static final Set<URLProtocol> LOCAL_PROTOCOL = Arrays.stream(new URLProtocol[]{URLProtocol.NO_PROTOCOL, URLProtocol.FILE}).collect(Collectors.toSet());
+    private static final Set<URLProtocol> LOCAL_PROTOCOL = Collections.unmodifiableSet(EnumSet.of(URLProtocol.NO_PROTOCOL, URLProtocol.FILE));
 
     private URLUtil() {
     }
